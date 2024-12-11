@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+char *charger_chaine(int n) {
+    char *chaine = (char *)malloc((n + 1) * sizeof(char));  
+    if (chaine == NULL) {
+        printf(" تخصيص الذاكر.\n");
+        exit(1);  
+    }
+    printf("أدخل سلسلة من الأحرف: ");
+    fgets(chaine, n + 1, stdin); 
+    chaine[strcspn(chaine, "\n")] = '\0'; 
+    return chaine;
+}
+
+int longueur(char *ch) {
+    int len = 0;
+    while (ch[len] != '\0') {  
+        len++;
+    }
+    return len;
+}
+
+
+void charger_tab(char *p, char tab[]) {
+    int i = 0;
+    while (p[i] != '\0') {
+        tab[i] = p[i];
+        i++;
+    }
+    tab[i] = '\0';  
+}
+
+
+void inverser_tab(char tab[], char t[], int m) {
+    for (int i = 0; i < m; i++) {
+        t[i] = tab[m - i - 1];  
+
+    }
+    t[m] = '\0';  
+}
+
+
+void afficher_tab(char tab[], int m) {
+    for (int i = 0; i < m; i++) {
+        printf("%c", tab[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int n;
+    printf("أدخل حجم السلسلة: ");
+    scanf("%d", &n);
+    getchar(); 
+
+    char *chaine = charger_chaine(n); 
+    printf(": %s\n", chaine);
+
+    int len = longueur(chaine); 
+    printf("chaine long: %d\n", len);
+
+    char tableau[len + 1];  
+    charger_tab(chaine, tableau);  
+    printf("tableau charge: ");
+    afficher_tab(tableau, len);  
+
+    char tableau_inverse[len + 1]; 
+    inverser_tab(tableau, tableau_inverse, len); 
+    printf("tableau invers: ");
+    afficher_tab(tableau_inverse, len);  
+
+    free(chaine); 
+    return 0;
+}
